@@ -34,10 +34,14 @@ const Home = () => {
         <tbody>
           <tr>
             <th>
-              <h3>Date</h3>
+              <h3 className="amount" onClick={handleSort}>
+                Date
+              </h3>
             </th>
             <th>
-              <h3>Category</h3>
+              <h3 className="amount" onClick={handleSort}>
+                Category
+              </h3>
             </th>
             <th>
               <h3 className="amount" onClick={handleSort}>
