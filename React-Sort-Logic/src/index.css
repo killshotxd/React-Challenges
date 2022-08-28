@@ -13,3 +13,11 @@ th {
 tr {
   text-align: center;
 }
+
+.msg p {
+  color: red;
+}
+
+.amount {
+  cursor: pointer;
+}

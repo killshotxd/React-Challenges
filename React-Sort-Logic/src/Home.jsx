@@ -3,23 +3,28 @@ import { options } from "./Option";
 import { transactions } from "./Income";
 const Home = () => {
   const [transactionData, setTransactionData] = useState(transactions);
+  const [isSorted, setIsSorted] = useState(false);
+  const [message, setMessage] = useState("Click on Amount to sort Data");
   const [selected, setSelected] = useState(options[0].value);
   const handleSort = (event) => {
-    let type = event.target.textContent.toLowerCase();
-    const sorted = [...transactions].sort((a, b) =>
-      a[type] > b[type] ? 1 : b[type] > a[type] ? -1 : 0
-    );
-    setTransactionData(sorted);
-
-    console.log(sorted);
-  };
-
-  const handleChange = (event) => {
-    console.log(event.target.value);
-    setSelected(event.target.value);
-    if (event.target.value == "max") {
-      console.log("Run");
-      handleSort(event);
+    if (!isSorted) {
+      let type = event.target.textContent.toLowerCase();
+      const sorted = [...transactions].sort((a, b) =>
+        a[type] > b[type] ? 1 : b[type] > a[type] ? -1 : 0
+      );
+      setTransactionData(sorted);
+      setIsSorted(true);
+      setMessage("Ascending Sort");
+      // console.log(sorted);
+    } else {
+      let type = event.target.textContent.toLowerCase();
+      const sorted = [...transactions].sort((a, b) =>
+        a[type] < b[type] ? 1 : b[type] < a[type] ? -1 : 0
+      );
+      setTransactionData(sorted);
+      setIsSorted(false);
+      setMessage("Descending Sort");
+      // console.log(sorted);
     }
   };
 
@@ -51,14 +56,9 @@ const Home = () => {
           })}
         </tbody>
       </table>
-
-      <select value={selected} onChange={handleChange}>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.text}
-          </option>
-        ))}
-      </select>
+      <div className="msg">
+        <p>{message}</p>
+      </div>
     </div>
   );
 };
