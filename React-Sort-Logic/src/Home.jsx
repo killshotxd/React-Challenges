@@ -4,7 +4,7 @@ import { transactions } from "./Income";
 const Home = () => {
   const [transactionData, setTransactionData] = useState(transactions);
   const [isSorted, setIsSorted] = useState(false);
-  const [message, setMessage] = useState("Click on Amount to sort Data");
+  const [message, setMessage] = useState("Click on any category to sort Data");
   const [selected, setSelected] = useState(options[0].value);
   const handleSort = (event) => {
     if (!isSorted) {
