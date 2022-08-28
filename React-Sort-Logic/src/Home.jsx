@@ -1,16 +1,26 @@
 import React, { useState } from "react";
-
+import { options } from "./Option";
 import { transactions } from "./Income";
 const Home = () => {
   const [transactionData, setTransactionData] = useState(transactions);
-
+  const [selected, setSelected] = useState(options[0].value);
   const handleSort = (event) => {
     let type = event.target.textContent.toLowerCase();
     const sorted = [...transactions].sort((a, b) =>
       a[type] > b[type] ? 1 : b[type] > a[type] ? -1 : 0
     );
     setTransactionData(sorted);
+
     console.log(sorted);
+  };
+
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setSelected(event.target.value);
+    if (event.target.value == "max") {
+      console.log("Run");
+      handleSort(event);
+    }
   };
 
   return (
@@ -41,6 +51,14 @@ const Home = () => {
           })}
         </tbody>
       </table>
+
+      <select value={selected} onChange={handleChange}>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.text}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };
