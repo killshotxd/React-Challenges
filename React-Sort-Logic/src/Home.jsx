@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { transactions } from "./Income";
 const Home = () => {
+  const [transactionData, setTransactionData] = useState(transactions);
+
+  const handleSort = (event) => {
+    let type = event.target.textContent.toLowerCase();
+    const sorted = [...transactions].sort((a, b) =>
+      a[type] > b[type] ? 1 : b[type] > a[type] ? -1 : 0
+    );
+    setTransactionData(sorted);
+    console.log(sorted);
+  };
+
   return (
     <div className="container">
       <table>
@@ -14,10 +25,12 @@ const Home = () => {
               <h3>Category</h3>
             </th>
             <th>
-              <h3>Amount</h3>
+              <h3 className="amount" onClick={handleSort}>
+                Amount
+              </h3>
             </th>
           </tr>
-          {transactions.map((transaction) => {
+          {transactionData.map((transaction) => {
             return (
               <tr key={transaction.id}>
                 <td>{transaction.date}</td>
